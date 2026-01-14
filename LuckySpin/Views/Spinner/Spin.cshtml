@@ -1,0 +1,17 @@
+﻿@model LuckySpin.Models.Spin
+@inject LuckySpin.Models.TextTransform TT
+@{
+//TODO: Assign the Layout property to "LuckySpinLayout" and notice the difference with and without the Layout property
+
+}
+
+<button onclick='history.go(0)'>Spin</button>
+@foreach(var number in Model.Numbers){
+    <div>@number</div>
+}
+
+<span style="display:@Model.ImageDisplay">
+    <h2> Player wins with the Lucky @TT.numberToText(Model.Luck) </h2>
+    <img src="/Images/LuckySpinCoins.jpg" alt="Coins"/>
+</span>
+
