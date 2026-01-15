@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-//TODO: import the LuckySpin.Models namespace into the Controller with a "using" command
-
+//DONE: import the LuckySpin.Models namespace into the Controller with a "using" command
+using LuckySpin.Models;
+using System.Security.Cryptography.X509Certificates;
 
 namespace LuckySpin.Controllers
 {
     public class SpinnerController : Controller
     {
-        //TODO: DIJ Part 1: Declare a private Spin field to hold the injected Spin object
-        //TODO: DIJ Part 2: Update the constructor to accept a Spin object as a parameter (see TODO above well)
-        public SpinnerController()
+        //DONE: DIJ Part 1: Declare a private Spin field to hold the injected Spin object
+        private Spin _spin;
+        //DONE: DIJ Part 2: Update the constructor to accept a Spin object as a parameter (see TODO above well)
+        public SpinnerController(Spin spin)
         {
-            //TODO: DIJ Part 3: Receive an injected Spin object and store it in the private _spin field
+            //DONE: DIJ Part 3: Receive an injected Spin object and store it in the private _spin field
+            _spin = spin;
 
         }
         /***
@@ -24,7 +27,7 @@ namespace LuckySpin.Controllers
         [HttpGet] //NOTE:This method is called by the browser's GET request for the URL http://localhost:XXXX/Spinner/Index
         public IActionResult Index()
         {
-            //TODO: Set a breakpoint on the following line of code and run the app in Debug mode
+            //DONE: Set a breakpoint on the following line of code and run the app in Debug mode
             return View();
         }
 
@@ -34,11 +37,13 @@ namespace LuckySpin.Controllers
             //NOTE: At this point, the _spin object has already been created by DIJ and contains random Numbers
             //.     We only need to use the Player's form data to create a Player object and pass it to the Spin action 
             //TODO: Use the data from the form to create a new Player object assigning the luck value from the form
+            Player player = new Player();
+            player.Luck = Luck;
 
             //TODO: Set a breakpoint on the following line of code and run the app in Debug mode
             //TODO: Instead of returning a View, the code below should "RedirectToAction" to the Spin Action
             //      Be sure to pass the Player object to the Spin action
-            return View();
+            return RedirectToAction("Spin", player);
         }
 
         /***
